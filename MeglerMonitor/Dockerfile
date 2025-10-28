@@ -2,21 +2,20 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-RUN apk add --no-cache libc6-compat && corepack enable
+RUN apk add --no-cache libc6-compat
 
-COPY web/package.json web/package.json
-COPY web/tsconfig.json web/tsconfig.json
-COPY web/tailwind.config.ts web/tailwind.config.ts
-COPY web/postcss.config.js web/postcss.config.js
-COPY web/next.config.mjs web/next.config.mjs
+# Copy web directory
+COPY web ./web
 
-RUN pnpm --dir web install
+# Install dependencies
+RUN cd web && npm install
 
-COPY web web
-
-RUN pnpm --dir web build
+# Build the application
+RUN cd web && npm run build
 
 ENV NODE_ENV=production
 ENV PORT=3000
 
-CMD ["pnpm", "--dir", "web", "start"]
+EXPOSE 3000
+
+CMD ["sh", "-c", "cd web && npm start"]
