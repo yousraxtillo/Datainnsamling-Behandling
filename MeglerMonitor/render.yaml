@@ -33,3 +33,10 @@ services:
           type: web
           name: megler-monitor-api
           property: host
+
+databases:
+  - name: megler-monitor-db
+    databaseName: megler_monitor
+    user: megler_user
+    plan: free
+    region: frankfurt
