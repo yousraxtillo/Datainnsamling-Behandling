@@ -1,0 +1,71 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: megler-monitor-db
+    environment:
+      POSTGRES_DB: megler
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.api
+    env_file:
+      - ../.env
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@db:5432/megler
+      CORS_ORIGIN: http://localhost:3000
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    volumes:
+      - ../api:/app/api
+      - api-node-modules:/app/api/node_modules
+    command: pnpm --dir api dev
+
+  web:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.web
+    env_file:
+      - ../.env
+    environment:
+      NEXT_PUBLIC_API_BASE: http://localhost:8000
+      API_BASE: http://api:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+    volumes:
+      - ../web:/app/web
+      - web-node-modules:/app/web/node_modules
+    command: pnpm --dir web dev
+
+  scraper:
+    build:
+      context: ..
+      dockerfile: infra/Dockerfile.scraper
+    env_file:
+      - ../.env
+    environment:
+      SCRAPER_DB_URL: postgres://postgres:postgres@db:5432/megler
+    volumes:
+      - ../scraper:/app/scraper
+      - ../out:/app/out
+    depends_on:
+      - db
+    profiles:
+      - scrape
+
+volumes:
+  postgres-data:
+  api-node-modules:
+  web-node-modules:

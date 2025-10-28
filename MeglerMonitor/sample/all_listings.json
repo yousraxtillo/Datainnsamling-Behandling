@@ -1,0 +1,40 @@
+[
+  {
+    "source": "Hjem.no",
+    "listing_id": "H12345",
+    "title": "Lys og moderne leilighet på Grünerløkka",
+    "address": "Thorvald Meyers gate 12",
+    "city": "Oslo",
+    "district": "Grünerløkka",
+    "chain": "EiendomsMegler 1",
+    "broker": "Kari Nordmann",
+    "price": 6500000,
+    "commission_est": 81250,
+    "status": "available",
+    "published": "2024-07-01T09:30:00+02:00",
+    "property_type": "Leilighet",
+    "broker_role": "Megler",
+    "role": "Megler",
+    "last_seen_at": "2024-07-28T08:00:00Z",
+    "snapshot_at": "2024-07-28T08:00:00Z"
+  },
+  {
+    "source": "DNB",
+    "listing_id": "D56789",
+    "title": "Familievennlig rekkehus med hage",
+    "address": "Hoffsveien 45",
+    "city": "Oslo",
+    "district": "Frogner",
+    "chain": "DNB Eiendom",
+    "broker": "Ola Hansen",
+    "price": 8700000,
+    "commission_est": 108750,
+    "status": "sold",
+    "published": "2024-06-14T12:15:00+02:00",
+    "property_type": "Rekkehus",
+    "broker_role": "Megler",
+    "role": "Megler",
+    "last_seen_at": "2024-07-28T08:00:00Z",
+    "snapshot_at": "2024-07-28T08:00:00Z"
+  }
+]

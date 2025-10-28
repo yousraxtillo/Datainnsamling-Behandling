@@ -1,0 +1,31 @@
+[project]
+name = "megler-monitor-scraper"
+version = "0.1.0"
+description = "Scrapers for DNB Eiendom and Hjem.no with CSV snapshots and Postgres storage."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "requests>=2.32.0",
+    "urllib3>=2.2.0",
+    "psycopg[binary]>=3.1.18",
+    "python-dateutil>=2.9.0",
+    "pytz>=2024.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.2.0",
+    "ruff>=0.4.0",
+]
+
+[build-system]
+requires = ["setuptools>=69.0.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = ["scraper"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"

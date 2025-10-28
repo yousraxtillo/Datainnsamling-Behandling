@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+
+jobs:
+  api:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - name: Enable corepack
+        run: corepack enable
+      - name: Install API deps
+        run: pnpm --dir api install
+      - name: Lint API
+        run: pnpm --dir api lint
+      - name: Typecheck API
+        run: pnpm --dir api typecheck
+      - name: Build API
+        run: pnpm --dir api build
+
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - name: Enable corepack
+        run: corepack enable
+      - name: Install web deps
+        run: pnpm --dir web install
+      - name: Lint web
+        run: pnpm --dir web lint
+      - name: Build web
+        env:
+          NEXT_PUBLIC_API_BASE: http://localhost:8000
+        run: pnpm --dir web build

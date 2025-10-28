@@ -1,0 +1,11 @@
+.git
+.github
+node_modules
+out
+.env
+.venv
+__pycache__
+dist
+.next
+coverage
+*.log

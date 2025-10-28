@@ -1,0 +1,21 @@
+FROM node:20-alpine AS base
+
+WORKDIR /app
+
+RUN apk add --no-cache python3 make g++ && corepack enable
+
+COPY api/package.json api/package.json
+COPY api/tsconfig.json api/tsconfig.json
+COPY api/.eslintrc.cjs api/.eslintrc.cjs
+
+RUN pnpm --dir api install
+
+COPY api/src api/src
+COPY infra/migrations infra/migrations
+
+RUN pnpm --dir api build
+
+ENV NODE_ENV=production
+ENV PORT=8000
+
+CMD ["node", "api/dist/index.js"]

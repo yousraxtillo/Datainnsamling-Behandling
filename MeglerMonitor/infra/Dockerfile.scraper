@@ -1,0 +1,16 @@
+FROM python:3.11-slim
+
+ENV PYTHONUNBUFFERED=1
+
+WORKDIR /app
+
+RUN pip install --upgrade pip
+
+COPY scraper /app/scraper
+
+WORKDIR /app/scraper
+RUN pip install --no-cache-dir -e .
+
+WORKDIR /app
+
+CMD ["python", "-m", "scraper.run", "--all"]

@@ -1,0 +1,28 @@
+# Legal & Compliance Notes
+
+Megler Monitor scrapes publicly-available listing data from DNB Eiendom and Hjem.no strictly for proof-of-concept purposes.
+
+## Terms of Use & Robots
+
+- Review the latest Terms of Use and robots.txt directives for each provider before running the scrapers outside a local development environment.
+- Stop scraping immediately if asked by the upstream providers.
+- Do not run automated scraping faster than a polite human browsing rate.
+
+## User Agent
+
+All scraper requests identify as:
+
+```
+MeglerMonitor/POC (+contact: you@example.com)
+```
+
+Replace the contact email before using outside local development.
+
+## Data Retention
+
+- Store captured listing data responsibly and delete upon request.
+- Retain only the snapshot history required for analytics and debugging.
+
+## Liability
+
+This repository is provided “as-is”. You are solely responsible for legal compliance and operational safety in your jurisdiction.
