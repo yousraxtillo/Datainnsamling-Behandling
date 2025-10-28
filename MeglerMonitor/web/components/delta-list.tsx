@@ -25,7 +25,7 @@ export function DeltaList({ title, data, variant }: Props) {
                 <div className="text-xs text-muted-foreground">{row.chain ?? "—"}</div>
               </div>
               <div className={`text-sm font-semibold ${isGrowing ? "text-emerald-400" : "text-rose-400"}`}>
-                {isGrowing ? "▲" : "▼"} {fmtMaybeCompactNOK(Math.abs(row.delta))}
+                {isGrowing ? "+" : "-"}{fmtMaybeCompactNOK(Math.abs(row.delta))}
               </div>
             </div>
           ))

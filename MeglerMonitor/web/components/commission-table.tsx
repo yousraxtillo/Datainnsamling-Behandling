@@ -64,7 +64,7 @@ export function CommissionTable({ data, trendMap }: Props) {
                   aria-label={`Sorter etter ${header.label.toLowerCase()}`}
                 >
                   {header.label}
-                  <span className="text-[10px]">{sortKey === header.key ? (ascending ? "▲" : "▼") : "▾"}</span>
+                  <span className="text-[10px]">{sortKey === header.key ? (ascending ? "↑" : "↓") : "↕"}</span>
                 </button>
               </th>
             ))}
@@ -109,7 +109,7 @@ export function CommissionTable({ data, trendMap }: Props) {
                       className="rounded-full bg-emerald-500/20 px-2 py-1 text-xs text-emerald-300"
                       title={`Økning på ${fmtNOK(delta)}`}
                     >
-                      🔼 {fmtNOK(delta)}
+                      +{fmtNOK(delta)}
                     </span>
                   )}
                   {delta < 0 && (
@@ -117,7 +117,7 @@ export function CommissionTable({ data, trendMap }: Props) {
                       className="rounded-full bg-rose-500/20 px-2 py-1 text-xs text-rose-300"
                       title={`Nedgang på ${fmtNOK(Math.abs(delta))}`}
                     >
-                      🔽 {fmtNOK(Math.abs(delta))}
+                      -{fmtNOK(Math.abs(delta))}
                     </span>
                   )}
                 </td>
