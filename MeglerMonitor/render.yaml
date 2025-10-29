@@ -1,10 +1,10 @@
 services:
   - type: web
     name: megler-monitor-web
-    env: docker
+    runtime: docker
     plan: starter
     region: frankfurt
-    dockerfilePath: infra/Dockerfile.web
+    dockerfilePath: ./infra/Dockerfile.web
     dockerContext: .
     envVars:
       - key: NEXT_PUBLIC_API_BASE
@@ -17,10 +17,10 @@ services:
 
   - type: web
     name: megler-monitor-api
-    env: docker
+    runtime: docker
     plan: starter
     region: frankfurt
-    dockerfilePath: infra/Dockerfile.api
+    dockerfilePath: ./infra/Dockerfile.api
     dockerContext: .
     envVars:
       - key: NODE_ENV
