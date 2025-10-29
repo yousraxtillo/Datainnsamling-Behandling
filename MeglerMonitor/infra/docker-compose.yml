@@ -4,6 +4,7 @@ services:
   db:
     image: postgres:16-alpine
     container_name: megler-monitor-db
+    restart: unless-stopped
     environment:
       POSTGRES_DB: megler
       POSTGRES_USER: postgres
@@ -17,11 +18,12 @@ services:
     build:
       context: ..
       dockerfile: infra/Dockerfile.api
+    restart: unless-stopped
     env_file:
       - ../.env
     environment:
       DATABASE_URL: postgres://postgres:postgres@db:5432/megler
-      CORS_ORIGIN: http://localhost:3000
+      CORS_ORIGIN: "*"
     ports:
       - "8000:8000"
     depends_on:
@@ -35,6 +37,7 @@ services:
     build:
       context: ..
       dockerfile: infra/Dockerfile.web
+    restart: unless-stopped
     env_file:
       - ../.env
     environment:

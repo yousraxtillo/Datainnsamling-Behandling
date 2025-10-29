@@ -4,6 +4,7 @@ services:
     env: docker
     plan: starter
     region: frankfurt
+    rootDir: .
     dockerfilePath: infra/Dockerfile.api
     healthCheckPath: /api/health
     envVars:
@@ -21,6 +22,7 @@ services:
     env: docker
     plan: starter
     region: frankfurt
+    rootDir: .
     dockerfilePath: infra/Dockerfile.web
     envVars:
       - key: NEXT_PUBLIC_API_BASE
