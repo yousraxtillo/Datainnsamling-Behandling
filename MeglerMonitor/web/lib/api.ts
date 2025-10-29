@@ -8,7 +8,9 @@ const CLIENT_API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? "http://localhost:80
 const SERVER_API_BASE = process.env.API_BASE ?? process.env.NEXT_PUBLIC_API_BASE ?? "http://localhost:8000";
 
 // Check if we should force sample mode (for demo deployment)
-const FORCE_SAMPLE_MODE = process.env.NEXT_PUBLIC_FORCE_SAMPLE === "true";
+const FORCE_SAMPLE_MODE = process.env.NEXT_PUBLIC_FORCE_SAMPLE === "true" || 
+  process.env.NODE_ENV === "production" || 
+  typeof window !== 'undefined' && window.location.hostname.includes('render');
 
 // Function to get the right API base depending on environment
 function getApiBase(): string {
@@ -223,6 +225,27 @@ function buildListingQuery(params: ListingFilterParams) {
 }
 
 export function useListings(params: ListingFilterParams & { since?: string; until?: string }) {
+  // Force sample mode for demo deployment
+  if (FORCE_SAMPLE_MODE) {
+    const filtered = FALLBACK_LISTINGS.filter((listing) => {
+      if (params.search) {
+        const term = params.search.toLowerCase();
+        return (
+          listing.title?.toLowerCase().includes(term) ||
+          listing.address?.toLowerCase().includes(term) ||
+          listing.broker?.toLowerCase().includes(term) ||
+          listing.city?.toLowerCase().includes(term)
+        );
+      }
+      return true;
+    });
+    return {
+      listings: filtered,
+      isLoading: false,
+      isError: false,
+    };
+  }
+
   const { since, until, ...filters } = params;
   const qs = buildQuery({
     ...listingFilterRecord(filters),
