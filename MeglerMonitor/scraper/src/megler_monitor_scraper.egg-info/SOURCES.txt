@@ -1,0 +1,12 @@
+README.md
+pyproject.toml
+src/megler_monitor_scraper.egg-info/PKG-INFO
+src/megler_monitor_scraper.egg-info/SOURCES.txt
+src/megler_monitor_scraper.egg-info/dependency_links.txt
+src/megler_monitor_scraper.egg-info/requires.txt
+src/megler_monitor_scraper.egg-info/top_level.txt
+src/scraper/__init__.py
+src/scraper/run.py
+src/scraper/scrape_dnb.py
+src/scraper/scrape_hjem.py
+src/scraper/utils.py

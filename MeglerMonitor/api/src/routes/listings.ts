@@ -45,11 +45,11 @@ export const listingsRoutes: FastifyPluginAsync = async (app) => {
 
     if (!filters.since && !filters.until) {
       const latest = await fetchLatestSnapshotDate();
-      if (!latest) {
-        return [];
+      if (latest) {
+        filters.since = latest;
+        filters.until = latest;
       }
-      filters.since = latest;
-      filters.until = latest;
+      // If no snapshot data exists, we'll query all available data without date filters
     }
 
     if (config.useSample) {
