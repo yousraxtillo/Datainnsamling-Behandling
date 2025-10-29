@@ -8,10 +8,7 @@ services:
     dockerContext: .
     envVars:
       - key: NEXT_PUBLIC_API_BASE
-        fromService:
-          type: web
-          name: megler-monitor-api
-          property: host
+        value: "https://meglermonitor-api.onrender.com"
       - key: NODE_ENV
         value: "production"
 
