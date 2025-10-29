@@ -21,8 +21,6 @@ services:
     region: frankfurt
     dockerfilePath: ./infra/Dockerfile.api
     dockerContext: .
-    buildCommand: ""
-    startCommand: "node api/dist/index.js"
     envVars:
       - key: NODE_ENV
         value: "production"
