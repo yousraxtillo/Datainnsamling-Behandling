@@ -1,42 +1,19 @@
 services:
   - type: web
-    name: megler-monitor-api
-    env: docker
-    plan: starter
-    region: frankfurt
-    rootDir: .
-    dockerfilePath: infra/Dockerfile.api
-    healthCheckPath: /api/health
-    envVars:
-      - key: DATABASE_URL
-        sync: false
-      - key: CORS_ORIGIN
-        value: "*"
-      - key: USE_SAMPLE
-        value: "true"
-      - key: RATE_LIMIT_MAX
-        value: "500"
-
-  - type: web
     name: megler-monitor-web
     env: docker
     plan: starter
     region: frankfurt
-    rootDir: .
-    dockerfilePath: infra/Dockerfile.web
+    dockerfilePath: ./infra/Dockerfile.web
     envVars:
       - key: NEXT_PUBLIC_API_BASE
-        fromService:
-          type: web
-          name: megler-monitor-api
-          property: host
+        value: "https://api-placeholder.com"
       - key: API_BASE
-        fromService:
-          type: web
-          name: megler-monitor-api
-          property: host
+        value: "https://api-placeholder.com"
       - key: NEXT_PUBLIC_FORCE_SAMPLE
         value: "true"
+      - key: NODE_ENV
+        value: "production"
 
 databases:
   - name: megler-monitor-db
