@@ -225,6 +225,16 @@ function buildListingQuery(params: ListingFilterParams) {
 }
 
 export function useListings(params: ListingFilterParams & { since?: string; until?: string }) {
+  const { since, until, ...filters } = params;
+  const qs = buildQuery({
+    ...listingFilterRecord(filters),
+    since,
+    until,
+  });
+  
+  // Always call the hook first
+  const { data, error, isLoading } = useApiSWR<Listing[]>(`/api/listings${qs}`);
+  
   // Force sample mode for demo deployment
   if (FORCE_SAMPLE_MODE) {
     const filtered = FALLBACK_LISTINGS.filter((listing) => {
@@ -245,14 +255,6 @@ export function useListings(params: ListingFilterParams & { since?: string; unti
       isError: false,
     };
   }
-
-  const { since, until, ...filters } = params;
-  const qs = buildQuery({
-    ...listingFilterRecord(filters),
-    since,
-    until,
-  });
-  const { data, error, isLoading } = useApiSWR<Listing[]>(`/api/listings${qs}`);
   
   // Use fallback data if API call fails
   const rawData = error ? FALLBACK_LISTINGS : data;
@@ -277,6 +279,14 @@ export function useListings(params: ListingFilterParams & { since?: string; unti
 }
 
 export function useMetrics(params: { asOf?: string; window?: string }) {
+  const qs = buildQuery({
+    asOf: params.asOf,
+    window: params.window,
+  });
+  
+  // Always call the hook first
+  const { data, error, isLoading } = useApiSWR<Metrics>(`/api/metrics${qs}`);
+  
   // Force sample mode for demo deployment
   if (FORCE_SAMPLE_MODE) {
     return {
@@ -285,12 +295,6 @@ export function useMetrics(params: { asOf?: string; window?: string }) {
       isError: false,
     };
   }
-
-  const qs = buildQuery({
-    asOf: params.asOf,
-    window: params.window,
-  });
-  const { data, error, isLoading } = useApiSWR<Metrics>(`/api/metrics${qs}`);
   
   // Use fallback data if API call fails
   const metrics = error ? FALLBACK_METRICS : data;
