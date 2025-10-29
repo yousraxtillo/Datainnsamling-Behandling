@@ -1,33 +1,37 @@
-services:services:
-
-  - type: web  - type: web
-
-    name: megler-monitor    name: megler-monitor-web
-
-    runtime: docker    env: docker
-
-    plan: starter    plan: starter
-
-    region: frankfurt    region: frankfurt
-
-    dockerfilePath: ./infra/Dockerfile.web    dockerfilePath: ./infra/Dockerfile.web
-
-    dockerContext: .    envVars:
-
-    envVars:      - key: NEXT_PUBLIC_API_BASE
-
-      - key: NEXT_PUBLIC_FORCE_SAMPLE        value: "https://api-placeholder.com"
-
-        value: "true"      - key: API_BASE
-
-      - key: NODE_ENV        value: "https://api-placeholder.com"
-
-        value: "production"      - key: NEXT_PUBLIC_FORCE_SAMPLE
-
-      - key: PORT        value: "true"
-
-        value: "3000"      - key: NODE_ENV
+services:
+  - type: web
+    name: megler-monitor-web
+    env: docker
+    plan: starter
+    region: frankfurt
+    dockerfilePath: ./infra/Dockerfile.web
+    dockerContext: .
+    envVars:
+      - key: NEXT_PUBLIC_API_BASE
+        value: "https://megler-monitor-api.onrender.com"
+      - key: NEXT_PUBLIC_FORCE_SAMPLE
+        value: "true"
+      - key: NODE_ENV
         value: "production"
+      - key: PORT
+        value: "3000"
+
+  - type: web
+    name: megler-monitor-api
+    env: docker
+    plan: starter
+    region: frankfurt
+    dockerfilePath: ./infra/Dockerfile.api
+    dockerContext: .
+    envVars:
+      - key: NODE_ENV
+        value: "production"
+      - key: PORT
+        value: "3001"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: megler-monitor-db
+          property: connectionString
 
 databases:
   - name: megler-monitor-db
