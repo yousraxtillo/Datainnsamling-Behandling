@@ -16,6 +16,8 @@ COPY infra/migrations infra/migrations
 RUN pnpm --dir api build
 
 ENV NODE_ENV=production
-ENV PORT=8000
+ENV PORT=10000
+
+EXPOSE 10000
 
 CMD ["node", "api/dist/index.js"]

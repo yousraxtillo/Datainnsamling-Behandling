@@ -22,6 +22,8 @@ services:
     region: frankfurt
     dockerfilePath: ./MeglerMonitor/infra/Dockerfile.api
     dockerContext: ./MeglerMonitor
+    buildCommand: ""
+    startCommand: "node api/dist/index.js"
     envVars:
       - key: NODE_ENV
         value: "production"
@@ -31,6 +33,10 @@ services:
           property: connectionString
       - key: USE_SAMPLE
         value: "false"
+      - key: PORT
+        value: "10000"
+      - key: API_PORT
+        value: "10000"
 
 databases:
   - name: megler-monitor-db

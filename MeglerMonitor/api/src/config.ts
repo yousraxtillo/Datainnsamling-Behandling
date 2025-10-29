@@ -18,7 +18,7 @@ function toBoolean(value: string | undefined, fallback = false): boolean {
 }
 
 export const config = {
-  port: toNumber(process.env.API_PORT, 8000),
+  port: toNumber(process.env.PORT || process.env.API_PORT, 8000),
   databaseUrl: process.env.DATABASE_URL,
   corsOrigin: process.env.CORS_ORIGIN ?? "*",
   rateLimitMax: toNumber(process.env.RATE_LIMIT_MAX, 300),
