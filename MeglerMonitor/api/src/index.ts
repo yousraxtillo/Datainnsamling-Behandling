@@ -34,6 +34,24 @@ app.get("/", async () => ({
 
 app.get("/api/health", async () => ({ ok: true }));
 
+app.get("/api/debug", async () => {
+  try {
+    const { query } = await import("./db");
+    const rows = await query("SELECT COUNT(*) as count FROM listings LIMIT 1");
+    const sample = await query("SELECT listing_id, snapshot_at, published FROM listings LIMIT 1");
+    return {
+      count: rows[0]?.count,
+      sample: sample[0],
+      types: {
+        snapshot_at: typeof sample[0]?.snapshot_at,
+        published: typeof sample[0]?.published
+      }
+    };
+  } catch (err: any) {
+    return { error: err.message };
+  }
+});
+
 app.register(listingsRoutes);
 app.register(metricsRoutes);
 app.register(aggregateRoutes);
