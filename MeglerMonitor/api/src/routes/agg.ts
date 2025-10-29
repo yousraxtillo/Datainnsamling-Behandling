@@ -247,7 +247,7 @@ export const aggregateRoutes: FastifyPluginAsync = async (app) => {
     if (!filters.since && !filters.until) {
       const latest = await queryOne<{ day: string }>(
         `
-        SELECT to_char(max(date_trunc('day', snapshot_at)), 'YYYY-MM-DD') AS day
+        SELECT to_char(max(date_trunc('day', snapshot_at::timestamp)), 'YYYY-MM-DD') AS day
         FROM listings
         `
       );
@@ -358,7 +358,7 @@ export const aggregateRoutes: FastifyPluginAsync = async (app) => {
     if (window === "now") {
       const latest = await queryOne<{ day: string }>(
         `
-        SELECT to_char(max(date_trunc('day', snapshot_at)), 'YYYY-MM-DD') AS day
+        SELECT to_char(max(date_trunc('day', snapshot_at::timestamp)), 'YYYY-MM-DD') AS day
         FROM listings
         `
       );
@@ -371,7 +371,7 @@ export const aggregateRoutes: FastifyPluginAsync = async (app) => {
       const days = parseWindow(window, 30);
       const latest = await queryOne<{ day: string }>(
         `
-        SELECT to_char(max(date_trunc('day', snapshot_at)), 'YYYY-MM-DD') AS day
+        SELECT to_char(max(date_trunc('day', snapshot_at::timestamp)), 'YYYY-MM-DD') AS day
         FROM listings
         `
       );
@@ -458,7 +458,7 @@ export const aggregateRoutes: FastifyPluginAsync = async (app) => {
 
     const latest = await queryOne<{ day: string }>(
       `
-      SELECT to_char(max(date_trunc('day', snapshot_at)), 'YYYY-MM-DD') AS day
+      SELECT to_char(max(date_trunc('day', snapshot_at::timestamp)), 'YYYY-MM-DD') AS day
       FROM listings
       `
     );

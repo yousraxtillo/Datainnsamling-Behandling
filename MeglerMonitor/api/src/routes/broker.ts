@@ -356,11 +356,11 @@ export const brokerRoutes: FastifyPluginAsync = async (app) => {
 
     const trendRows = await query<{ period: string; total_commission: number }>(
       `
-        SELECT to_char(date_trunc('month', snapshot_at), 'YYYY-MM-01') AS period,
+        SELECT to_char(date_trunc('month', snapshot_at::timestamp), 'YYYY-MM-01') AS period,
                COALESCE(SUM(commission_est), 0) AS total_commission
         FROM listings
         ${whereClause}
-        GROUP BY date_trunc('month', snapshot_at)
+        GROUP BY date_trunc('month', snapshot_at::timestamp)
         ORDER BY period
       `,
       params

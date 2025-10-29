@@ -66,7 +66,7 @@ export const metricsRoutes: FastifyPluginAsync = async (app) => {
     } else {
       const latest = await queryOne<{ latest_day: string }>(
         `
-        SELECT to_char(max(date_trunc('day', snapshot_at)), 'YYYY-MM-DD') AS latest_day
+        SELECT to_char(max(date_trunc('day', snapshot_at::timestamp)), 'YYYY-MM-DD') AS latest_day
         FROM listings
         `
       );

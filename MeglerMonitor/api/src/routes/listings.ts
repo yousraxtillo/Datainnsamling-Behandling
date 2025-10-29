@@ -16,7 +16,7 @@ import {
 async function fetchLatestSnapshotDate(): Promise<string | null> {
   const rows = await query<{ day: string }>(
     `
-    SELECT to_char(max(date_trunc('day', snapshot_at)), 'YYYY-MM-DD') AS day
+    SELECT to_char(max(date_trunc('day', snapshot_at::timestamp)), 'YYYY-MM-DD') AS day
     FROM listings
     `
   );
