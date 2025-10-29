@@ -1,10 +1,8 @@
 // Fallback sample data for when API is unreachable
 export const FALLBACK_METRICS = {
   as_of: "2025-10-29T08:00:00Z",
-  total_listings: 19460,
   active_agents: 2196,
-  total_value: 67400000000,
-  avg_price: 3463917
+  total_value: 67400000000
 };
 
 export const FALLBACK_LISTINGS = [
