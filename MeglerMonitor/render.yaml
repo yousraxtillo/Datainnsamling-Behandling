@@ -4,8 +4,8 @@ services:
     runtime: docker
     plan: starter
     region: frankfurt
-    dockerfilePath: ./Dockerfile.web
-    dockerContext: .
+    dockerfilePath: ./MeglerMonitor/Dockerfile.web
+    dockerContext: ./MeglerMonitor
     envVars:
       - key: NEXT_PUBLIC_API_BASE
         fromService:
