@@ -43,14 +43,15 @@ export const listingsRoutes: FastifyPluginAsync = async (app) => {
     }
     const filters: ListingFilters = toListingFilters(parsed.data);
 
-    if (!filters.since && !filters.until) {
-      const latest = await fetchLatestSnapshotDate();
-      if (latest) {
-        filters.since = latest;
-        filters.until = latest;
-      }
-      // If no snapshot data exists, we'll query all available data without date filters
-    }
+    // TEMPORARILY DISABLED: Don't auto-set date filters, let users query all data
+    // if (!filters.since && !filters.until) {
+    //   const latest = await fetchLatestSnapshotDate();
+    //   if (latest) {
+    //     filters.since = latest;
+    //     filters.until = latest;
+    //   }
+    //   // If no snapshot data exists, we'll query all available data without date filters
+    // }
 
     if (config.useSample) {
       const sample = getSampleListings();
