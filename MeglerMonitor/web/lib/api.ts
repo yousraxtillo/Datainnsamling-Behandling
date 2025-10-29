@@ -2,10 +2,10 @@ import useSWR from "swr";
 import { FALLBACK_METRICS, FALLBACK_LISTINGS } from "./fallback-data";
 
 // For client-side calls (browser)
-const CLIENT_API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? "https://meglermonitor-api.onrender.com";
+const CLIENT_API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? "https://megler-monitor-api.onrender.com";
 
 // For server-side calls (SSR) - use internal Docker service name if available  
-const SERVER_API_BASE = process.env.API_BASE ?? process.env.NEXT_PUBLIC_API_BASE ?? "https://meglermonitor-api.onrender.com";
+const SERVER_API_BASE = process.env.API_BASE ?? process.env.NEXT_PUBLIC_API_BASE ?? "https://megler-monitor-api.onrender.com";
 
 // Check if we should force sample mode (for demo deployment)
 const FORCE_SAMPLE_MODE = false; // Use real API data from database

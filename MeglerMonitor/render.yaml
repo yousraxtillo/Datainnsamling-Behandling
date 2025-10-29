@@ -8,19 +8,19 @@ services:
     dockerContext: .
     envVars:
       - key: NEXT_PUBLIC_API_BASE
-        value: "https://meglermonitor-api.onrender.com"
+        value: "https://megler-monitor-api.onrender.com"
       - key: NODE_ENV
         value: "production"
       - key: FORCE_REBUILD
-        value: "20251029-fix-api-url"
+        value: "20251029-enable-sample-data"
 
   - type: web
     name: megler-monitor-api
     runtime: docker
     plan: starter
     region: frankfurt
-    dockerfilePath: ./MeglerMonitor/infra/Dockerfile.api
-    dockerContext: ./MeglerMonitor
+    dockerfilePath: ./infra/Dockerfile.api
+    dockerContext: .
     buildCommand: ""
     startCommand: "node api/dist/index.js"
     envVars:
@@ -31,7 +31,7 @@ services:
           name: megler-monitor-db
           property: connectionString
       - key: USE_SAMPLE
-        value: "false"
+        value: "true"
       - key: PORT
         value: "10000"
       - key: API_PORT
