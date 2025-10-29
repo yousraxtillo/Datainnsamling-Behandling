@@ -11,6 +11,8 @@ services:
         value: "https://meglermonitor-api.onrender.com"
       - key: NODE_ENV
         value: "production"
+      - key: FORCE_REBUILD
+        value: "20251029-fix-api-url"
 
   - type: web
     name: megler-monitor-api
