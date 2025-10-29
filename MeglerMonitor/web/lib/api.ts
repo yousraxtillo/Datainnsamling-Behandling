@@ -1,4 +1,5 @@
 import useSWR from "swr";
+import { FALLBACK_METRICS, FALLBACK_LISTINGS } from "./fallback-data";
 
 // For client-side calls (browser)
 const CLIENT_API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? "http://localhost:8000";
@@ -226,7 +227,11 @@ export function useListings(params: ListingFilterParams & { since?: string; unti
     until,
   });
   const { data, error, isLoading } = useApiSWR<Listing[]>(`/api/listings${qs}`);
-  const filtered = data?.filter((listing) => {
+  
+  // Use fallback data if API call fails
+  const rawData = error ? FALLBACK_LISTINGS : data;
+  
+  const filtered = rawData?.filter((listing) => {
     if (filters.search) {
       const term = filters.search.toLowerCase();
       return (
@@ -240,7 +245,7 @@ export function useListings(params: ListingFilterParams & { since?: string; unti
   });
   return {
     listings: filtered,
-    isLoading,
+    isLoading: isLoading && !error,
     isError: Boolean(error),
   };
 }
@@ -251,9 +256,13 @@ export function useMetrics(params: { asOf?: string; window?: string }) {
     window: params.window,
   });
   const { data, error, isLoading } = useApiSWR<Metrics>(`/api/metrics${qs}`);
+  
+  // Use fallback data if API call fails
+  const metrics = error ? FALLBACK_METRICS : data;
+  
   return {
-    metrics: data,
-    isLoading,
+    metrics,
+    isLoading: isLoading && !error, // Don't show loading if using fallback
     isError: Boolean(error),
   };
 }
