@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: megler-monitor-web
+    env: docker
+    plan: starter
+    region: frankfurt
+    dockerfilePath: ./infra/Dockerfile.web
+    envVars:
+      - key: NEXT_PUBLIC_API_BASE
+        value: "https://api-placeholder.com"
+      - key: API_BASE
+        value: "https://api-placeholder.com"
+      - key: NEXT_PUBLIC_FORCE_SAMPLE
+        value: "true"
+      - key: NODE_ENV
+        value: "production"
+
+databases:
+  - name: megler-monitor-db
+    databaseName: megler_monitor
+    user: megler_user
+    plan: free
+    region: frankfurt

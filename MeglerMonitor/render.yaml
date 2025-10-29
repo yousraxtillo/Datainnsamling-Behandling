@@ -1,18 +1,32 @@
-services:
-  - type: web
-    name: megler-monitor-web
-    env: docker
-    plan: starter
-    region: frankfurt
-    dockerfilePath: ./infra/Dockerfile.web
-    envVars:
-      - key: NEXT_PUBLIC_API_BASE
-        value: "https://api-placeholder.com"
-      - key: API_BASE
-        value: "https://api-placeholder.com"
-      - key: NEXT_PUBLIC_FORCE_SAMPLE
-        value: "true"
-      - key: NODE_ENV
+services:services:
+
+  - type: web  - type: web
+
+    name: megler-monitor    name: megler-monitor-web
+
+    runtime: docker    env: docker
+
+    plan: starter    plan: starter
+
+    region: frankfurt    region: frankfurt
+
+    dockerfilePath: ./infra/Dockerfile.web    dockerfilePath: ./infra/Dockerfile.web
+
+    dockerContext: .    envVars:
+
+    envVars:      - key: NEXT_PUBLIC_API_BASE
+
+      - key: NEXT_PUBLIC_FORCE_SAMPLE        value: "https://api-placeholder.com"
+
+        value: "true"      - key: API_BASE
+
+      - key: NODE_ENV        value: "https://api-placeholder.com"
+
+        value: "production"      - key: NEXT_PUBLIC_FORCE_SAMPLE
+
+      - key: PORT        value: "true"
+
+        value: "3000"      - key: NODE_ENV
         value: "production"
 
 databases:
