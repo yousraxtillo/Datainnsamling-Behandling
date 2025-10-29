@@ -1,0 +1,22 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+RUN apk add --no-cache libc6-compat && corepack enable
+
+COPY MeglerMonitor/web/package.json MeglerMonitor/web/package.json
+COPY MeglerMonitor/web/tsconfig.json MeglerMonitor/web/tsconfig.json
+COPY MeglerMonitor/web/tailwind.config.ts MeglerMonitor/web/tailwind.config.ts
+COPY MeglerMonitor/web/postcss.config.js MeglerMonitor/web/postcss.config.js
+COPY MeglerMonitor/web/next.config.mjs MeglerMonitor/web/next.config.mjs
+
+RUN pnpm --dir MeglerMonitor/web install
+
+COPY MeglerMonitor/web MeglerMonitor/web
+
+RUN pnpm --dir MeglerMonitor/web build
+
+ENV NODE_ENV=production
+ENV PORT=3000
+
+CMD ["pnpm", "--dir", "MeglerMonitor/web", "start"]
