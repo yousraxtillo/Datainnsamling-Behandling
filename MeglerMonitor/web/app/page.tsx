@@ -22,6 +22,7 @@ import {
   useListings,
   useMetrics,
 } from "@/lib/api";
+import { FALLBACK_METRICS } from "@/lib/fallback-data";
 import { computeAverageDaysOnMarket, countSold, splitDeltas, uniqueValues } from "@/lib/agg";
 import { fmtCompactNOK, fmtNOK, slugify } from "@/lib/utils";
 
@@ -272,12 +273,24 @@ function OverviewPageContent() {
         <div className="card-grid">
           <KpiCard
             title="Total Omsetning (12m)"
-            value={isMetricsLoading || !metrics ? "…" : fmtCompactNOK(metrics.total_value)}
+            value={
+              metrics?.total_value 
+                ? fmtCompactNOK(metrics.total_value)
+                : isMetricsLoading
+                ? "…"
+                : fmtCompactNOK(FALLBACK_METRICS.total_value)
+            }
             subtitle="Samlet verdi av aktive oppføringer de siste 12 måneder."
           />
           <KpiCard
             title="Aktive Eiendomsmeglere"
-            value={isMetricsLoading || !metrics ? "…" : metrics.active_agents.toLocaleString("no-NO")}
+            value={
+              metrics?.active_agents 
+                ? metrics.active_agents.toLocaleString("no-NO")
+                : isMetricsLoading
+                ? "…"
+                : FALLBACK_METRICS.active_agents.toLocaleString("no-NO")
+            }
             subtitle="Registrerte meglere i valgte periode og filter."
           />
           <KpiCard
