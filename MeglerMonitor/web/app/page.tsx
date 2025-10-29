@@ -272,7 +272,7 @@ function OverviewPageContent() {
         <div className="card-grid">
           <KpiCard
             title="Total Omsetning (12m)"
-            value={isMetricsLoading || !metrics ? "…" : fmtNOK(metrics.total_value)}
+            value={isMetricsLoading || !metrics ? "…" : fmtCompactNOK(metrics.total_value)}
             subtitle="Samlet verdi av aktive oppføringer de siste 12 måneder."
           />
           <KpiCard
