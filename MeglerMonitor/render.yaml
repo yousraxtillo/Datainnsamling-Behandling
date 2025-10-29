@@ -33,6 +33,8 @@ services:
           type: web
           name: megler-monitor-api
           property: host
+      - key: NEXT_PUBLIC_FORCE_SAMPLE
+        value: "true"
 
 databases:
   - name: megler-monitor-db

@@ -7,6 +7,9 @@ const CLIENT_API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? "http://localhost:80
 // For server-side calls (SSR) - use internal Docker service name if available
 const SERVER_API_BASE = process.env.API_BASE ?? process.env.NEXT_PUBLIC_API_BASE ?? "http://localhost:8000";
 
+// Check if we should force sample mode (for demo deployment)
+const FORCE_SAMPLE_MODE = process.env.NEXT_PUBLIC_FORCE_SAMPLE === "true";
+
 // Function to get the right API base depending on environment
 function getApiBase(): string {
   // Check if we're running on the server (no window object)
@@ -251,6 +254,15 @@ export function useListings(params: ListingFilterParams & { since?: string; unti
 }
 
 export function useMetrics(params: { asOf?: string; window?: string }) {
+  // Force sample mode for demo deployment
+  if (FORCE_SAMPLE_MODE) {
+    return {
+      metrics: FALLBACK_METRICS,
+      isLoading: false,
+      isError: false,
+    };
+  }
+
   const qs = buildQuery({
     asOf: params.asOf,
     window: params.window,
