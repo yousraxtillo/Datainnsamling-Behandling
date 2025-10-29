@@ -4,7 +4,7 @@ services:
     runtime: docker
     plan: starter
     region: frankfurt
-    dockerfilePath: ./infra/Dockerfile.web
+    dockerfilePath: ./Dockerfile.web
     dockerContext: .
     envVars:
       - key: NEXT_PUBLIC_API_BASE
