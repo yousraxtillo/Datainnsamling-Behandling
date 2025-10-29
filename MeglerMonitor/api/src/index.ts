@@ -26,6 +26,12 @@ app.register(rateLimit, {
   timeWindow: config.rateLimitTimeWindow,
 });
 
+app.get("/", async () => ({ 
+  message: "MeglerMonitor API Server", 
+  status: "running",
+  endpoints: ["/api/health", "/api/listings", "/api/metrics", "/api/agg/*"]
+}));
+
 app.get("/api/health", async () => ({ ok: true }));
 
 app.register(listingsRoutes);
