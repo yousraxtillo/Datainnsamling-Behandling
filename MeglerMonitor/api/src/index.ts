@@ -39,9 +39,13 @@ app.get("/api/debug", async () => {
     const { query } = await import("./db");
     const rows = await query("SELECT COUNT(*) as count FROM listings LIMIT 1");
     const sample = await query("SELECT listing_id, snapshot_at, published FROM listings LIMIT 1");
+    const dateTest = await query("SELECT DISTINCT snapshot_at::date as snapshot_date FROM listings ORDER BY snapshot_date LIMIT 5");
+    const latestDate = await query("SELECT to_char(max(date_trunc('day', snapshot_at::timestamp)), 'YYYY-MM-DD') AS latest_day FROM listings");
     return {
       count: rows[0]?.count,
       sample: sample[0],
+      distinctDates: dateTest,
+      latestDateFunction: latestDate[0]?.latest_day,
       types: {
         snapshot_at: typeof sample[0]?.snapshot_at,
         published: typeof sample[0]?.published
