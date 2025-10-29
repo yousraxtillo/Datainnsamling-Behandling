@@ -8,12 +8,7 @@ const CLIENT_API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? "http://localhost:80
 const SERVER_API_BASE = process.env.API_BASE ?? process.env.NEXT_PUBLIC_API_BASE ?? "http://localhost:8000";
 
 // Check if we should force sample mode (for demo deployment)
-const FORCE_SAMPLE_MODE = process.env.NEXT_PUBLIC_FORCE_SAMPLE === "true" || 
-  process.env.NODE_ENV === "production" ||
-  (typeof window !== 'undefined' && (
-    window.location.hostname.includes('render') ||
-    window.location.hostname.includes('onrender.com')
-  ));
+const FORCE_SAMPLE_MODE = true; // Always use fallback data for demo
 
 // Function to get the right API base depending on environment
 function getApiBase(): string {
