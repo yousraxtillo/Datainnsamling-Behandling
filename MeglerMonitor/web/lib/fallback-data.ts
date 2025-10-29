@@ -20,8 +20,11 @@ export const FALLBACK_LISTINGS = [
     status: "available",
     published: "2025-10-29T09:30:00+02:00",
     property_type: "Leilighet",
+    segment: "Premium",
+    price_bucket: "40M-50M",
     broker_role: "Eiendomsmegler",
     role: "Eiendomsmegler",
+    is_sold: false,
     last_seen_at: "2025-10-29T08:00:00Z",
     snapshot_at: "2025-10-29T08:00:00Z"
   },
@@ -39,8 +42,11 @@ export const FALLBACK_LISTINGS = [
     status: "available",
     published: "2025-10-29T10:15:00+02:00",
     property_type: "Enebolig",
+    segment: "Luxury",
+    price_bucket: "80M+",
     broker_role: "Eiendomsmegler", 
     role: "Eiendomsmegler",
+    is_sold: false,
     last_seen_at: "2025-10-29T08:00:00Z",
     snapshot_at: "2025-10-29T08:00:00Z"
   }
