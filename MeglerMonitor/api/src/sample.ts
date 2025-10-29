@@ -63,7 +63,7 @@ function loadJson<T>(filename: string): T {
 
 export function getSampleListings(): Listing[] {
   if (!cachedListings) {
-    const raw = loadJson<Listing[]>("all_listings.json");
+    const raw = loadJson<Listing[]>("all_listings_impressive.json");
     cachedListings = raw.map(normalizeListing);
   }
   return cachedListings;
