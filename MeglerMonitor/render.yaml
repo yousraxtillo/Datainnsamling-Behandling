@@ -20,8 +20,8 @@ services:
     runtime: docker
     plan: starter
     region: frankfurt
-    dockerfilePath: ./infra/Dockerfile.api
-    dockerContext: .
+    dockerfilePath: ./MeglerMonitor/infra/Dockerfile.api
+    dockerContext: ./MeglerMonitor
     envVars:
       - key: NODE_ENV
         value: "production"
