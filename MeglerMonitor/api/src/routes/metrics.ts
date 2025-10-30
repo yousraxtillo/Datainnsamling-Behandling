@@ -116,12 +116,11 @@ export const metricsRoutes: FastifyPluginAsync = async (app) => {
           WHERE broker IS NOT NULL
             AND (status IS NULL OR LOWER(status) NOT IN ('sold', 'solgt', 'inactive', 'withdrawn'))
         ), 0) AS active_agents,
-        COALESCE(COUNT(*) FILTER (
-          WHERE LOWER(status) IN ('sold', 'solgt')
-        ), 0) AS sold_count,
-        COALESCE(AVG(EXTRACT(epoch FROM (snapshot_at - published)))/86400 FILTER (
-          WHERE published IS NOT NULL AND snapshot_at > published
-        ), 0) AS avg_days_on_market
+        COALESCE(COUNT(CASE WHEN LOWER(status) IN ('sold', 'solgt') THEN 1 END), 0) AS sold_count,
+        COALESCE(AVG(CASE 
+          WHEN published IS NOT NULL AND snapshot_at > published 
+          THEN EXTRACT(epoch FROM (snapshot_at - published))/86400 
+        END), 0) AS avg_days_on_market
       FROM latest_per_listing
       `,
       [windowStartStr, asOfDateStr]
