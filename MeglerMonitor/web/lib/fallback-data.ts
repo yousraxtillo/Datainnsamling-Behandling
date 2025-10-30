@@ -2,7 +2,9 @@
 export const FALLBACK_METRICS = {
   as_of: "2025-10-29T08:00:00Z",
   active_agents: 2196,
-  total_value: 67400000000
+  total_value: 67400000000,
+  sold_count: 245,
+  avg_days_on_market: 42
 };
 
 export const FALLBACK_LISTINGS = [

@@ -25,6 +25,8 @@ export interface Metrics {
   as_of: string;
   total_value: number;
   active_agents: number;
+  sold_count?: number;
+  avg_days_on_market?: number;
 }
 
 export interface BrokerAggregate {

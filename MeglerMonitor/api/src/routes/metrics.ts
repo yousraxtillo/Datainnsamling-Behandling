@@ -115,7 +115,13 @@ export const metricsRoutes: FastifyPluginAsync = async (app) => {
         COALESCE(COUNT(DISTINCT broker) FILTER (
           WHERE broker IS NOT NULL
             AND (status IS NULL OR LOWER(status) NOT IN ('sold', 'solgt', 'inactive', 'withdrawn'))
-        ), 0) AS active_agents
+        ), 0) AS active_agents,
+        COALESCE(COUNT(*) FILTER (
+          WHERE LOWER(status) IN ('sold', 'solgt')
+        ), 0) AS sold_count,
+        COALESCE(AVG(EXTRACT(epoch FROM (snapshot_at - published)))/86400 FILTER (
+          WHERE published IS NOT NULL AND snapshot_at > published
+        ), 0) AS avg_days_on_market
       FROM latest_per_listing
       `,
       [windowStartStr, asOfDateStr]
@@ -126,6 +132,8 @@ export const metricsRoutes: FastifyPluginAsync = async (app) => {
         as_of: asOfDate.toISOString(),
         total_value: 0,
         active_agents: 0,
+        sold_count: 0,
+        avg_days_on_market: 0,
       };
     }
 
@@ -133,6 +141,8 @@ export const metricsRoutes: FastifyPluginAsync = async (app) => {
       as_of: row.as_of ?? asOfDate.toISOString(),
       total_value: Number(row.total_value) ?? 0,
       active_agents: Number(row.active_agents) ?? 0,
+      sold_count: Number(row.sold_count) ?? 0,
+      avg_days_on_market: Number(row.avg_days_on_market) ?? 0,
     };
   });
 };
