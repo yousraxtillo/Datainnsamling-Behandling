@@ -108,14 +108,18 @@ export const metricsRoutes: FastifyPluginAsync = async (app) => {
       )
       SELECT
         to_char(timezone('UTC', (SELECT max(snapshot_at) FROM windowed)), 'YYYY-MM-DD"T"HH24:MI:SS"Z"') AS as_of,
-        COALESCE(SUM(price) FILTER (
-          WHERE price IS NOT NULL
+        COALESCE(SUM(CASE 
+          WHEN price IS NOT NULL
             AND (status IS NULL OR LOWER(status) NOT IN ('sold', 'solgt', 'inactive', 'withdrawn'))
-        ), 0) AS total_value,
-        COALESCE(COUNT(DISTINCT broker) FILTER (
-          WHERE broker IS NOT NULL
+          THEN price 
+          ELSE 0 
+        END), 0) AS total_value,
+        COALESCE(COUNT(DISTINCT CASE 
+          WHEN broker IS NOT NULL
             AND (status IS NULL OR LOWER(status) NOT IN ('sold', 'solgt', 'inactive', 'withdrawn'))
-        ), 0) AS active_agents,
+          THEN broker 
+          ELSE NULL 
+        END), 0) AS active_agents,
         COALESCE(COUNT(CASE WHEN LOWER(status) IN ('sold', 'solgt') THEN 1 END), 0) AS sold_count,
         COALESCE(30, 30) as avg_days_on_market
       FROM latest_per_listing
