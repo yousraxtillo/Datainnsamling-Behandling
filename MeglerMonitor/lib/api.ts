@@ -1,10 +1,10 @@
 import useSWR from "swr";
 
 // For client-side calls (browser)
-const CLIENT_API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? "http://localhost:8000";
+const CLIENT_API_BASE = process.env.NEXT_PUBLIC_API_BASE ?? "https://meglermonitor-api.onrender.com";
 
-// For server-side calls (SSR) - use internal Docker service name if available
-const SERVER_API_BASE = process.env.API_BASE ?? process.env.NEXT_PUBLIC_API_BASE ?? "http://localhost:8000";
+// For server-side rendering (SSR), we might have a different internal URL  
+const SERVER_API_BASE = process.env.API_BASE ?? process.env.NEXT_PUBLIC_API_BASE ?? "https://meglermonitor-api.onrender.com";
 
 // Function to get the right API base depending on environment
 function getApiBase(): string {
