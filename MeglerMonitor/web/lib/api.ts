@@ -8,7 +8,7 @@ const CLIENT_API_BASE = "https://meglermonitor-api.onrender.com";
 const SERVER_API_BASE = "https://meglermonitor-api.onrender.com";
 
 // Check if we should force sample mode (for demo deployment)
-const FORCE_SAMPLE_MODE = false; // Use real API data from database
+const FORCE_SAMPLE_MODE = false; // Use real API data from database - CACHE BUST v2
 
 // Function to get the right API base depending on environment
 function getApiBase(): string {
